@@ -22,7 +22,6 @@ public class ThreadSafePriorityQueue<X> implements SimpleQueue<Priority<X>>
     @SuppressWarnings("unchecked")
 	public void initialize()
     {
-        //TODO: put your initialization code here
     	tasks = (Priority<X>[]) new Priority<?>[DEFAULT_SIZE];
     	currentHeapSize = DEFAULT_SIZE;
     }
@@ -136,41 +135,4 @@ public class ThreadSafePriorityQueue<X> implements SimpleQueue<Priority<X>>
         return found;
     }
     
-    public static void main(String[] args){
-    	ThreadSafePriorityQueue<QueueTestTask> q = new ThreadSafePriorityQueue<>();
-    	final Random rand = new Random();
-    	int max = 10;
-        for(int i = 0; i < max; i++)
-        {   int idx = i;
-        	q.add(new Priority<QueueTestTask>(rand.nextInt(100), new QueueTestTask(idx)));
-        
-        }
-        
-        while(!q.isEmpty())
-        {
-            Priority<QueueTestTask> item = q.poll();
-            System.out.println("Priority: " + item.priority);
-        }
-        
-        Priority<QueueTestTask> item1 = new Priority<QueueTestTask>(666, new QueueTestTask(0));
-        Priority<QueueTestTask> item2 = new Priority<QueueTestTask>(0, new QueueTestTask(0));
-        Priority<QueueTestTask> item3 = new Priority<QueueTestTask>(42, new QueueTestTask(0));
-
-        
-        q.add(item1);
-        q.add(item2);
-        q.add(item3);
-
-        System.out.println("Item 1: "  + q.contains(item1));
-        Priority<QueueTestTask> item = q.poll();
-        System.out.println("Item 2: "  + item.priority);
-        
-        item = q.poll();
-        
-        System.out.println("Item 3: "  + item.priority);
-        
-        item = q.poll();
-        System.out.println("Item 1: "  + item.priority);
-
-    }
 }
