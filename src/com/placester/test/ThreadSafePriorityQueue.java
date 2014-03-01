@@ -99,16 +99,21 @@ public class ThreadSafePriorityQueue<X> implements SimpleQueue<Priority<X>>
         	tasks[++nrOfNodes] = e;
         	swim(nrOfNodes);
         }
-        return false;
+        return true;
     }
 
     @Override
     public Priority<X> poll(){
     	synchronized(lock){
-    		exchange(1,nrOfNodes);
-    		sink(1, nrOfNodes -1);
+    		if(nrOfNodes >= 1){
+    			exchange(1,nrOfNodes);
+    			sink(1, nrOfNodes -1);
+    			return tasks[nrOfNodes--];
+    		}
+    		else{
+    			return null;
+    		}
     	}
-        return tasks[nrOfNodes--];
     }
 
     @Override
